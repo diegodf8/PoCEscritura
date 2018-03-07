@@ -12,7 +12,7 @@ public class App
             PrintWriter printWriter = new PrintWriter("texto.txt");
             BufferedWriter bw = new BufferedWriter(printWriter);
             bw.write("Esto es una cadena de prueba de escritura");
-            bw.write("\n Salto de linesssssssa");
+            bw.write("\n Salto de linasdasdasdesssssssa");
             bw.close();
             printWriter.close();
         }catch (Exception ex){

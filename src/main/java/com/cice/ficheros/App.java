@@ -7,33 +7,36 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import com.cice.ficheros.dto.Curso;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class App
 {
+    
+    private static final String FILE = "texto.txt";
+    
     public static void main( String[] args )
     {
-        try {
-            PrintWriter printWriter = new PrintWriter("texto.txt");
-            BufferedWriter bw = new BufferedWriter(printWriter);
-            bw.write("Esto es una cadena de prueba de escritura");
-            bw.write("\n Salto de linasdasdasdesssssssa");
-            printWriter.println("Tercera caden3333333a");
-            bw.close();
-            printWriter.close();
-            System.out.println("TExt2");
-            //leerFichero("texto.txt");
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
+        
+      Curso curso = new Curso (1L, "Master en Java", "Povedilla", "Programacion");
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      String aux = gson.toJson(curso);
+      escrituraFichero(FILE, aux);
+      leerFichero(FILE);
+      
+      
 
     }
     
-    public static void leerFichero(String RutaFichero){
+    public static void leerFichero(String rutaFichero){
        try {
-            FileReader fileReader = new FileReader(RutaFichero);
+            FileReader fileReader = new FileReader(rutaFichero);
             BufferedReader bufferReader = new BufferedReader(fileReader);
             String cadena = bufferReader.readLine();
             System.out.println(cadena);
-            System.out.println("TExt");
+            cadena = bufferReader.readLine();
+            System.out.println(cadena);
             bufferReader.close();
             fileReader.close();
         }catch (FileNotFoundException ex){
@@ -41,5 +44,17 @@ public class App
         }catch (IOException ex2){
             ex2.printStackTrace();
         }
+    }
+    
+    public static void escrituraFichero(String rutaFichero, String json){
+        try {
+            PrintWriter printWriter = new PrintWriter(rutaFichero);
+            printWriter.write(json);
+            printWriter.close();
+            
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        
     }
 }

@@ -23,15 +23,15 @@ public class Curso {
         return this.IdCurso;
     }
     
-    public String nombreCurso(){
+    public String getnombreCurso(){
         return this.nombreCurso;
     }
     
-    public String centro(){
+    public String getcentro(){
         return this.centro;
     }
     
-    public String categoria(){
+    public String getcategoria(){
         return this.categoria;
     }
     

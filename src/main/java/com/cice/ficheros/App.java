@@ -10,6 +10,7 @@ import java.io.IOException;
 import com.cice.ficheros.dto.Curso;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.lang.StringBuilder;
 
 public class App
 {
@@ -23,20 +24,24 @@ public class App
       Gson gson = new GsonBuilder().setPrettyPrinting().create();
       String aux = gson.toJson(curso);
       escrituraFichero(FILE, aux);
-      leerFichero(FILE);
-      
+      Curso curso2 = gson.fromJson(leerFichero(FILE), Curso.class);
+      System.out.println(curso2.categoria());
       
 
     }
     
-    public static void leerFichero(String rutaFichero){
+    public static String leerFichero(String rutaFichero){
+          
+          StringBuilder sb = new StringBuilder();
+       
        try {
+            
             FileReader fileReader = new FileReader(rutaFichero);
             BufferedReader bufferReader = new BufferedReader(fileReader);
             String cadena = bufferReader.readLine();
-            System.out.println(cadena);
+            sb.append(cadena);
             cadena = bufferReader.readLine();
-            System.out.println(cadena);
+            sb.append(cadena);
             bufferReader.close();
             fileReader.close();
         }catch (FileNotFoundException ex){
@@ -44,6 +49,7 @@ public class App
         }catch (IOException ex2){
             ex2.printStackTrace();
         }
+        return sb.toString();     
     }
     
     public static void escrituraFichero(String rutaFichero, String json){

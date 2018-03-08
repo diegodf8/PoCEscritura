@@ -12,7 +12,7 @@ import com.google.gson.GsonBuilder;
 import java.lang.StringBuilder;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.google.gson.reflect.TypeToken;
 
 public class App
 {    
@@ -23,12 +23,22 @@ public class App
       Curso curso = new Curso (1L, "Master en Java", "Povedilla", "Programacion");
       List <Curso> lista = new ArrayList<Curso>();
       lista.add(new Curso(1L, "Master en Java", "Povedilla", "Programacion"));
-      lista.add(new Curso(2L, "Master en Java2", "Povedilla", "Programacion2"));
+      lista.add(new Curso(2L, "Master en Oracle", "Povedilla", "Programacion"));
+      
       Gson gson = new GsonBuilder().setPrettyPrinting().create();
       String aux = gson.toJson(curso);
-      escrituraFichero(FILE, aux);
+      escribirFichero(FILE, aux);
       Curso curso2 = gson.fromJson(leerFichero(FILE), Curso.class);
       System.out.println(curso2.getcategoria());
+      
+      Gson gson2 = new GsonBuilder().setPrettyPrinting().create();
+      String aux2 = gson2.toJson(lista);
+      escribirFichero(FILE, aux2);
+      List<Curso> lista2 = gson.fromJson(leerFichero(FILE), new TypeToken<ArrayList<Curso>>(){}.getType());
+      
+      for(Curso c: lista2){
+          System.out.println(c.getnombreCurso());
+      }
     }
     
     public static String leerFichero(String rutaFichero){
@@ -54,7 +64,7 @@ public class App
         return sb.toString();     
     }
     
-    public static void escrituraFichero(String rutaFichero, String json){
+    public static void escribirFichero(String rutaFichero, String json){
         try {
             PrintWriter printWriter = new PrintWriter(rutaFichero);
             printWriter.write(json);
